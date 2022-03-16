@@ -1,6 +1,18 @@
 import './style.css'
-
+import Split from 'split-grid'
 const $ = <T>(selector:any, scope = document): T => scope.querySelector(selector)
+
+Split({
+  columnGutters: [{
+    track: 1,
+    element: $<HTMLDivElement>('.vertical-gutter'),
+  }],
+  rowGutters: [{
+    track: 1,
+    element: $<HTMLDivElement>('.horizontal-gutter'),
+  }]
+})
+
 const $js:HTMLTextAreaElement = $('#js')
 const $css:HTMLTextAreaElement = $('#css')
 const $html:HTMLTextAreaElement = $('#html')

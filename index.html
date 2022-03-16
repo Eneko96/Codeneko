@@ -8,23 +8,22 @@
   </head>
   <body>
     <div id="app">
-      <section>
+      <div class="grid">
         <div>
-          <textarea placeholder="html" id="html"></textarea>
+          <textarea placeholder="Write your HTML here" id="html"></textarea>
         </div>
-      </section>
-      <section>
         <div>
-          <textarea placeholder="js" id="js"></textarea>
+          <textarea placeholder="Write your JavaScript here" id="js"></textarea>
         </div>
-      </section>
-      <section>
         <div>
-          <textarea placeholder="css" id="css"></textarea>
+          <textarea placeholder="Write your CSS here" id="css"></textarea>
         </div>
-      </section>
-
-      <iframe srcdoc="<h1>Hola mundo</h1>"></iframe>
+        <div>
+          <iframe srcdoc="<h1>Hola mundo</h1>"></iframe>
+        </div>
+        <div class="vertical-gutter"></div>
+        <div class="horizontal-gutter"></div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
