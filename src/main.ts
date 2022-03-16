@@ -7,9 +7,9 @@ const init = () => {
   const { pathname } = window.location
   const [rawHtml, rawCss, rawJs] = pathname.slice(1).split('%7C')
 
-  const html = decode(rawHtml)
-  const css = decode(rawCss)
-  const js = decode(rawJs)
+  const html = rawHtml ? decode(rawHtml) : ''
+  const css = rawCss ? decode(rawCss) : ''
+  const js = rawJs ? decode(rawJs) : ''
 
   $html.value = html
   $css.value = css
@@ -60,9 +60,10 @@ const update = () => {
   const js = $js.value
 
   const hashedCode = `${encode(html)}|${encode(css)}|${encode(js)}`
+  console.log(hashedCode)
 
   // this will save the data as a state
-  window.history.replaceState(null, '', `/${hashedCode}`)
+   window.history.replaceState(null, '', `/${hashedCode}`)
 
   const constructor_html = createHtml({html,js,css})
   $<HTMLIFrameElement>('iframe').setAttribute('srcdoc', constructor_html)
