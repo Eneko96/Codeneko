@@ -17,10 +17,7 @@ const $js:HTMLTextAreaElement = $('#js')
 const $css:HTMLTextAreaElement = $('#css')
 const $html:HTMLTextAreaElement = $('#html')
 
-const createHtml = () => {
-  const html = $html.value
-  const css = $css.value
-  const js = $js.value
+const createHtml = ({html, js, css}: { html: string, js: string, css: string }) => {
 
   return `
   <!DOCTYPE html>
@@ -40,8 +37,14 @@ const createHtml = () => {
 }
 
 const update = () => {
-  const html = createHtml()
-  $<HTMLIFrameElement>('iframe').setAttribute('srcdoc', html)
+  const html = $html.value
+  const css = $css.value
+  const js = $js.value
+
+  const hashedCode = `${window.btoa(html)}|${window.btoa(css)}|${window.btoa(js)}`
+
+  const constructor_html = createHtml({html,js,css})
+  $<HTMLIFrameElement>('iframe').setAttribute('srcdoc', constructor_html)
 }
 
 $js.addEventListener('input', update)

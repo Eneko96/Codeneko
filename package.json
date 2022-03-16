@@ -8,10 +8,16 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "standard": "^16.0.4",
     "typescript": "^4.5.4",
     "vite": "^2.8.0"
   },
   "dependencies": {
     "split-grid": "^1.0.11"
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/standard/eslintrc.json"
+    ]
   }
 }
