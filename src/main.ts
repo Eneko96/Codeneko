@@ -1,14 +1,15 @@
 import './style.css'
 import Split from 'split-grid'
+import { encode, decode} from 'js-base64'
 const $ = <T>(selector:any, scope = document): T => scope.querySelector(selector)
 
 const init = () => {
   const { pathname } = window.location
   const [rawHtml, rawCss, rawJs] = pathname.slice(1).split('%7C')
 
-  const html = window.atob(rawHtml)
-  const css = window.atob(rawCss)
-  const js = window.atob(rawJs)
+  const html = decode(rawHtml)
+  const css = decode(rawCss)
+  const js = decode(rawJs)
 
   $html.value = html
   $css.value = css
@@ -43,12 +44,12 @@ const createHtml = ({html, js, css}: { html: string, js: string, css: string }) 
         ${css}
       </style>
     </head>
-  <script>
-    ${js}
-  </script>
-  <body>
+    <body>
     ${html}
-  </body>
+    <script>
+      ${js}
+    </script>
+    </body>
   `
 }
 init()
@@ -58,7 +59,7 @@ const update = () => {
   const css = $css.value
   const js = $js.value
 
-  const hashedCode = `${window.btoa(html)}|${window.btoa(css)}|${window.btoa(js)}`
+  const hashedCode = `${encode(html)}|${encode(css)}|${encode(js)}`
 
   // this will save the data as a state
   window.history.replaceState(null, '', `/${hashedCode}`)
