@@ -2,6 +2,22 @@ import './style.css'
 import Split from 'split-grid'
 const $ = <T>(selector:any, scope = document): T => scope.querySelector(selector)
 
+const init = () => {
+  const { pathname } = window.location
+  const [rawHtml, rawCss, rawJs] = pathname.slice(1).split('%7C')
+
+  const html = window.atob(rawHtml)
+  const css = window.atob(rawCss)
+  const js = window.atob(rawJs)
+
+  $html.value = html
+  $css.value = css
+  $js.value = js
+
+  const htmlForPreview = createHtml({ html, js, css })
+  $<HTMLIFrameElement>('iframe').setAttribute('srcdoc', htmlForPreview)
+}
+
 Split({
   columnGutters: [{
     track: 1,
@@ -35,6 +51,7 @@ const createHtml = ({html, js, css}: { html: string, js: string, css: string }) 
   </body>
   `
 }
+init()
 
 const update = () => {
   const html = $html.value
@@ -42,6 +59,9 @@ const update = () => {
   const js = $js.value
 
   const hashedCode = `${window.btoa(html)}|${window.btoa(css)}|${window.btoa(js)}`
+
+  // this will save the data as a state
+  window.history.replaceState(null, '', `/${hashedCode}`)
 
   const constructor_html = createHtml({html,js,css})
   $<HTMLIFrameElement>('iframe').setAttribute('srcdoc', constructor_html)
