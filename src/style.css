@@ -62,11 +62,23 @@ textarea::focus {
   background-position: calc(100% - 16px) calc(100% - 16px);
 }
 
-#html {
-  background-image: url("/assets/html5.svg");
+.editor {
+  position: relative;
+}
+
+.editor::after {
+  position: absolute;
   background-repeat: no-repeat;
-  background-size: 36px;
-  background-position: calc(100% - 16px) calc(100% - 16px);
+  right: 16px;
+  bottom: 16px;
+  content: "";
+  width: 48px;
+  height: 48px;
+  z-index: 1;
+}
+
+#html::after {
+  background-image: url("/assets/html5.svg");
 }
 
 .grid {
@@ -86,4 +98,8 @@ textarea::focus {
   cursor: row-resize;
   grid-area: 2 / 1 / 2 / 4;
   border: solid 1px #fff;
+}
+
+.monaco-editor {
+  padding-top: 24px;
 }

@@ -1,7 +1,19 @@
 import './style.css'
 import Split from 'split-grid'
+import * as monaco from 'monaco-editor'
 import { encode, decode} from 'js-base64'
 const $ = <T>(selector:any, scope = document): T => scope.querySelector(selector)
+import HMTLWorker from 'monaco-editor/esm/vs/language/html/html.worker.js?worker'
+
+window.MonacoEnvironment = {
+  getWorker (_:any, label:string) {
+    if (label === 'html') {
+      return new HMTLWorker()
+    }
+  }
+}
+
+
 
 const init = () => {
   const { pathname } = window.location
@@ -11,9 +23,20 @@ const init = () => {
   const css = rawCss ? decode(rawCss) : ''
   const js = rawJs ? decode(rawJs) : ''
 
-  $html.value = html
+  // $html.value = html
   $css.value = css
   $js.value = js
+
+  const htmlEditor = monaco.editor.create($html , {
+    value: '',
+    language: 'html',
+    theme: 'vs-dark',
+    fontSize: 18,
+    minimap: null
+  })
+
+  htmlEditor.onDidChangeModelContent(update)
+
 
   const htmlForPreview = createHtml({ html, js, css })
   $<HTMLIFrameElement>('iframe').setAttribute('srcdoc', htmlForPreview)
@@ -54,7 +77,7 @@ const createHtml = ({html, js, css}: { html: string, js: string, css: string }) 
 }
 init()
 
-const update = () => {
+function update() {
   const html = $html.value
   const css = $css.value
   const js = $js.value
@@ -71,4 +94,4 @@ const update = () => {
 
 $js.addEventListener('input', update)
 $css.addEventListener('input', update)
-$html.addEventListener('input', update)
+// $html.addEventListener('input', update)
