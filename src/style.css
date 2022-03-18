@@ -48,18 +48,12 @@ textarea::focus {
   outline: 0;
 }
 
-#js {
+#js::after {
   background-image: url("/assets/js.svg");
-  background-repeat: no-repeat;
-  background-size: 36px;
-  background-position: calc(100% - 16px) calc(100% - 16px);
 }
 
-#css {
+#css::after {
   background-image: url("/assets/css3.svg");
-  background-repeat: no-repeat;
-  background-size: 36px;
-  background-position: calc(100% - 16px) calc(100% - 16px);
 }
 
 .editor {
@@ -83,8 +77,8 @@ textarea::focus {
 
 .grid {
   display: grid;
-  grid-template-rows: 1fr 5px 1fr;
-  grid-template-columns: 1fr 5px 1fr;
+  grid-template-rows: 49.8% 5px 49.8%;
+  grid-template-columns: 49.8% 5px 49.8%;
   height: 100vh;
 }
 
@@ -100,6 +94,6 @@ textarea::focus {
   border: solid 1px #fff;
 }
 
-.monaco-editor {
+/* .monaco-editor {
   padding-top: 24px;
-}
+} */
